@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='d-flex justify-content-center'>
+    <section class="mb-5 w-75">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-cascade wider reverse">
+                    <div class="view view-cascade overlay">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(142).jpg"
+                            alt="Sample image">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body card-body-cascade text-center">
+                        <h2 class="font-weight-bold"><a>{{ eventcard.title}}</a></h2>
+                        <p>Created by <a><strong>
+                                    <!-- NEED TO FIGURE OUT TO GET CREATORS NAME TO DISPLAY -->
+                                    <!-- {{current_user.username}} -->
+                                </strong></a></p>
+                    </div>
+                </div>
+                {% if current_user.id == eventcard.creator_id %}
+                <div class="text-center mt-3">
+                    <p><a href="/events/{{eventcard.id}}/edit">Edit event</a><span class="mx-2">|</span><a
+                            href="{{ url_for('events.delete_event', event_id=eventcard.id) }}">Delete
+                            Event</a>
+                    </p>
+                </div>
+                {% endif %}
+                <div class="mt-5 ">
+                    <h3>Event description</h3>
+                    <hr class="mb-4 mt-4">
+                    <p class="card-text mb-0"><strong>Located at: </strong>{{ eventcard.location }}</p>
+                    <p class="card-text mb-0"><strong>Start date:
+                        </strong>{{ eventcard.start_date.strftime('%B %d, %Y') }}
+                        <p class="card-text"><strong>End date: </strong>
+                            {% if eventcard.end_date == None %}
+                            N/A
+                            {% else %}
+                            {{ eventcard.end_date.strftime('%B %d, %Y') }}
+                            {% endif %}
+                        </p>
+                        <p>{{ eventcard.description }}
+                        </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}

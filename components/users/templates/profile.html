@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display: flex;justify-content: center;">
+    <div style="width:85%; margin-bottom: 50px;" class="card">
+        <div style='display: flex;justify-content: center;margin-bottom: 18px;' class="card-body">
+            <form method='POST' style="width:45%">
+                <p class="h4 text-center py-4">{{ current_user.username}} Profile Page</p>
+                {{ form.hidden_tag() }}
+
+                <p class="mb-0">Your Name: {{ current_user.name }}</p>
+                <div class="md-form">
+                    <i class="fas fa-user prefix orange-text"></i>
+                    {{ form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    <label style='color:orangered' for="orangeForm-name">Your name</label>
+                </div>
+                <p class='mb-0'>Your Username: {{ current_user.username }}</p>
+                {% if form.username.errors %}
+                <ul style='list-style: none; color: red;' class="pl-0 ``errors">
+                    {% for error in form.username.errors %}<li><i>{{ error }}</i></li>
+                    {% endfor %}</ul>
+                {% endif %}
+                <div class="md-form">
+                    <i class="fas fa-user prefix orange-text"></i>
+                    {{ form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-username", class='form-control validate') }}
+                    <label style='color:orangered;' for="orangeForm-username">Your username</label>
+                </div>
+                <p class='mb-0'>Your Email: {{ current_user.email }}</p>
+                {% if form.email.errors %}
+                <ul style='list-style: none; color: red;' class="pl-0 errors">
+                    {% for error in form.email.errors %}<li><i>{{ error }}</i></li>
+                    {% endfor %}</ul>
+                {% endif %}
+                <div class="md-form">
+                    <i class="fas fa-envelope prefix orange-text"></i>
+                    {{ form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-email", class='form-control validate') }}
+                    <label style='color:orangered;' for="orangeForm-email">Your email</label>
+                </div>
+                <div class="text-center py-4 mt-3">
+                    {{ form.submit(style='float: right; color:black', class='btn btn-deep-orange') }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

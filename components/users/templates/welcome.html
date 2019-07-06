@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="display:flex; justify-content: center;">
+    <h1 style="margin-top: 25px;margin-right: 10px;">Welcome {{ current_user.username }} to</h1> <img
+        src="{{url_for('static', filename='Voucher.png')}}" style='animation-duration: 4s; width: 200px'
+        class="animated pulse infinite my-4" alt="">
+    <h1 style='margin-top: 25px; margin-left: 10px;'>world!</h1>
+</div>
+{% endblock content %}

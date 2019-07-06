@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if not current_user.username %}
+<div style="display: flex;justify-content: center;">
+    <div style="width:85%" class="card">
+        <div style='display: flex;justify-content: center;' class="card-body">
+            <form method='POST' style="width:45%">
+                <p class="h4 text-center py-4">Log In</p>
+                <div class='text-center mr-5' style="color: red;">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul style='list-style: none;' class=flashes>
+                        {% for message in messages %}
+                        <li><i>{{ message }}</i></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                {{ form.hidden_tag() }}
+                <div class="md-form">
+                    <i class="fa fa-user prefix orange-text"></i>
+                    {{ form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', class='form-control', type="text", id="materialFormCardNameEx") }}
+                    <label for="materialFormCardNameEx" style='color:orangered'>Your username</label>
+                    {% if form.username.errors %}
+                    <ul style='list-style: none; padding-left: .5em; margin: .25em 0 0 0; color: red;' class="errors">
+                        {% for error in form.username.errors %}<li><i>{{ error }}</i></li>
+                        {% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <div class="md-form">
+                    <i class="fa fa-lock prefix orange-text"></i>
+                    {{ form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', class='form-control', type="password", id="materialFormCardPasswordEx") }}
+                    <label for="materialFormCardPasswordEx" style='color:orangered'>Your password</label>
+                    {% if form.password.errors %}
+                    <ul style='list-style: none; padding-left: .5em; margin: .25em 0 0 0; color: red;' class="errors">
+                        {% for error in form.password.errors %}<li><i>{{ error }}</i></li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                <div class="text-center py-4 mt-3">
+                    {{ form.submit(style='color:black;', class='btn btn-deep-orange') }}
+                </div>
+            </form>
+        </div>
+        <div class="text-center mb-2">
+            <p>Don't have an account? <a class="mb-4" href="/users/signup">Sign up today!</a></p>
+        </div>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center">You are already signed in!</h1>
+{% endif %}
+{% endblock content %}

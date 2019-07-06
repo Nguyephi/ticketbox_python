@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if not current_user.username %}
+<div style="display: flex;justify-content: center;">
+    <div style="width:85%; margin-bottom: 50px;" class="card">
+        <div style='display: flex;justify-content: center;margin-bottom: 18px;' class="card-body">
+            <form method='POST' style="width:45%">
+                <p class="h4 text-center py-4">Sign Up</p>
+
+                {% for field in signup_modal_form.errors %}
+                {% for error in signup_modal_form.errors[field] %}
+                <div class="alert alert-error">
+                    <strong>Error!</strong> {{error}}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                {{ signup_modal_form.hidden_tag() }}
+                <div class="md-form">
+                    <i class="fas fa-user prefix orange-text"></i>
+                    {{ signup_modal_form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    <label style='color:orangered' for="orangeForm-name">Your name</label>
+                </div>
+                <div class="md-form">
+                    <i class="fas fa-user prefix orange-text"></i>
+                    {{ signup_modal_form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-username", class='form-control validate') }}
+                    <label style='color:orangered' for="orangeForm-username">Your username</label>
+                </div>
+                <div class="md-form">
+                    <i class="fas fa-envelope prefix orange-text"></i>
+                    {{ signup_modal_form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-email", class='form-control validate') }}
+                    <label style='color:orangered' for="orangeForm-email">Your email</label>
+                </div>
+                <div class="md-form">
+                    <i class="fas fa-lock prefix orange-text"></i>
+                    {{ signup_modal_form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-password", class='form-control validate') }}
+                    <label style='color:orangered' for="orangeForm-password">Your password</label>
+                </div>
+                <div class="md-form">
+                    <i class="fas fa-lock prefix orange-text"></i>
+                    {{ signup_modal_form.pass_confirm(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-pass_confirm", class='form-control validate') }}
+                    <label style='color:orangered' for="orangeForm-pass_confirm">Confirm your
+                        password</label>
+                </div>
+
+                <div class="text-center py-4 mt-3">
+                    {{ signup_modal_form.submit(style='float: right; color:black', class='btn btn-deep-orange') }}
+                </div>
+            </form>
+        </div>
+        <div class="text-center mb-2">
+            <p>Already have an account? <a class="mb-4" href="/users/login">Log in here!</a></p>
+        </div>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center">You are already signed in!</h1>
+{% endif %}
+{% endblock content %}

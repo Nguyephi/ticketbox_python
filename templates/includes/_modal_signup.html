@@ -1,0 +1,61 @@
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="peach-gradient modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                {% for field in signup_modal_form.errors %}
+                {% for error in signup_modal_form.errors[field] %}
+                <div class="alert alert-error">
+                    <strong>Error!</strong> {{error}}
+                </div>
+                {% endfor %}
+                {% endfor %}
+                <div class="modal-body mx-3">
+                    {{ signup_modal_form.hidden_tag() }}
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix orange-text"></i>
+                        {{ signup_modal_form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                        <label style='color:orangered' for="orangeForm-name">Your name</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix orange-text"></i>
+                        {{ signup_modal_form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-username", class='form-control validate') }}
+                        <label style='color:orangered' for="orangeForm-username">Your username</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix orange-text"></i>
+                        {{ signup_modal_form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-email", class='form-control validate') }}
+                        <label style='color:orangered' for="orangeForm-email">Your email</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-lock prefix orange-text"></i>
+                        {{ signup_modal_form.password(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-password", class='form-control validate') }}
+                        <label style='color:orangered' for="orangeForm-password">Your password</label>
+                    </div>
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix orange-text"></i>
+                        {{ signup_modal_form.pass_confirm(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="password", id="orangeForm-pass_confirm", class='form-control validate') }}
+                        <label style='color:orangered' for="orangeForm-pass_confirm">Confirm your
+                            password</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    {{ signup_modal_form.submit(style='float: right;', class='btn btn-deep-orange') }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+#####Throw this on the page you want to use the modal######
+<!-- <div>
+    <p>Don't have an account? <a href="" class="mb-4" data-toggle="modal" data-target="#modalRegisterForm">Sign
+            up today</a></p>
+</div> -->
