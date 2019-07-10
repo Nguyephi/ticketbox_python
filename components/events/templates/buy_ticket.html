@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{{current_user.id}}
+{{ticket}}
+{{event}}
+
+<div>
+    <form method='POST'>
+        <p class="h4 text-center py-5">Purchase Ticket</p>
+        <div class="form-group d-flex" style="justify-content: space-evenly">
+            <div class="card w-25">
+                <div class="view overlay" style="display: flex;justify-content: center;">
+                    <img style='width:300px;height: 170px;border-bottom-left-radius: 6px;border-bottom-right-radius: 6px;'
+                        class="card-img-top" src="{{ url_for('static', filename='cover_img/' + event.cover_img)}}"
+                        alt="Card image cap">
+                    <a href="{{ url_for('events.eventcard', event_id=event.id)}}">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="card-title"><strong>{{ event.title.capitalize() }}</strong></h4>
+                    <p class="card-text mb-0">Start date: {{ event.start_date.strftime('%B %d, %Y') }}</p>
+                    <p class="card-text">Located: {{ event.location.capitalize() }}</p>
+                </div>
+            </div>
+            <div style="width:35%;">
+                {{ form.hidden_tag() }}
+                <div>
+                    <label style='color:orangered; padding-top: 20px' for="orangeForm-name">Select Ticket Type</label>
+                    {% if form.ticket_type.errors %}
+                    {{ form.ticket_type(style='box-shadow: 0 1px 0 0 orange;border: 1px solid orangered;', id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.ticket_type.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.ticket_type(style='box-shadow: 0 1px 0 0 orange;border: 1px solid orangered;', id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
+                </div>
+                <div class="md-form">
+                    <label style='color:orangered' for="orangeForm-name">Quantity</label>
+                    {% if form.quantity.errors %}
+                    {{ form.quantity(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.quantity.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.quantity(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
+                </div>
+                <div class="text-center pb-4">
+                    {{ form.submit(style='color:black;', class='btn btn-deep-orange') }}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+<div style="display: flex;justify-content: center;">
+
+</div>
+{% endblock content %}

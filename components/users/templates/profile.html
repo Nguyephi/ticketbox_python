@@ -4,37 +4,73 @@
     <div style="width:85%; margin-bottom: 50px;" class="card">
         <div style='display: flex;justify-content: center;margin-bottom: 18px;' class="card-body">
             <form method='POST' style="width:45%">
-                <p class="h4 text-center py-4">{{ current_user.username}} Profile Page</p>
+                <p class="h4 text-center pt-4">Account Info</p>
+                <div class="text-center">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith%}
+                </div>
+                <div class="text-center">
+                    <p class="mb-0">Name: {{ current_user.name }}</p>
+                    <p class='mb-0'>Username: {{ current_user.username }}</p>
+                    <p class='mb-0'>Email: {{ current_user.email }}</p>
+                    <p><a href="{{ url_for('users.delete_user', user_id=current_user.id) }}">Delete
+                            Account</a></p>
+                </div>
+                <hr class="pb-4">
                 {{ form.hidden_tag() }}
 
-                <p class="mb-0">Your Name: {{ current_user.name }}</p>
                 <div class="md-form">
                     <i class="fas fa-user prefix orange-text"></i>
-                    {{ form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
                     <label style='color:orangered' for="orangeForm-name">Your name</label>
+                    {% if form.name.errors %}
+                    {{ form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
                 </div>
-                <p class='mb-0'>Your Username: {{ current_user.username }}</p>
-                {% if form.username.errors %}
-                <ul style='list-style: none; color: red;' class="pl-0 ``errors">
-                    {% for error in form.username.errors %}<li><i>{{ error }}</i></li>
-                    {% endfor %}</ul>
-                {% endif %}
+
                 <div class="md-form">
                     <i class="fas fa-user prefix orange-text"></i>
-                    {{ form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-username", class='form-control validate') }}
-                    <label style='color:orangered;' for="orangeForm-username">Your username</label>
+                    <label style='color:orangered' for="orangeForm-name">Your username</label>
+                    {% if form.username.errors %}
+                    {{ form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.username(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
                 </div>
-                <p class='mb-0'>Your Email: {{ current_user.email }}</p>
-                {% if form.email.errors %}
-                <ul style='list-style: none; color: red;' class="pl-0 errors">
-                    {% for error in form.email.errors %}<li><i>{{ error }}</i></li>
-                    {% endfor %}</ul>
-                {% endif %}
+
                 <div class="md-form">
-                    <i class="fas fa-envelope prefix orange-text"></i>
-                    {{ form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-email", class='form-control validate') }}
-                    <label style='color:orangered;' for="orangeForm-email">Your email</label>
+                    <i class="fas fa-user prefix orange-text"></i>
+                    <label style='color:orangered' for="orangeForm-name">Your email</label>
+                    {% if form.email.errors %}
+                    {{ form.email(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.name(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                    {% endif %}
                 </div>
+
                 <div class="text-center py-4 mt-3">
                     {{ form.submit(style='float: right; color:black', class='btn btn-deep-orange') }}
                 </div>

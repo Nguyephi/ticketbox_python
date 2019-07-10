@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+    <h1 class="text-center mt-5 mb-4">Add Tickets</h1>
+    <div class="form-group d-flex justify-content-center">
+        <div class="w-50">
+            {{ form.hidden_tag() }}
+            <div class="md-form">
+                <label style='color:orangered' for="orangeForm-name">Ticket Type</label>
+                {% if form.ticket_type.errors %}
+                {{ form.ticket_type(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.ticket_type.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.ticket_type(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                {% endif %}
+            </div>
+
+            <div class="md-form">
+                <label style='color:orangered' for="orangeForm-name">Ticket Price</label>
+                {% if form.ticket_price.errors %}
+                {{ form.ticket_price(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.ticket_price.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.ticket_price(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                {% endif %}
+            </div>
+
+            <div class="md-form">
+                <label style='color:orangered' for="orangeForm-name">Quantity Of Ticket Type</label>
+                {% if form.quantity.errors %}
+                {{ form.quantity(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control is-invalid') }}
+                <div class="invalid-feedback">
+                    {% for error in form.quantity.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.quantity(style='box-shadow: 0 1px 0 0 orange;border-bottom: 1px solid orangered;', type="text", id="orangeForm-name", class='form-control validate') }}
+                {% endif %}
+            </div>
+            <div style="float: right;">
+                {{ form.submit(style='float: right;', class='mt-4 btn btn-deep-orange black-text') }}
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}

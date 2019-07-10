@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="list-group">
+    {% if events|length == 0 %}
+    <p class="h4 text-center pt-4 mb-4">You have no events</p>
+    {% elif events|length == 1 %}
+    <p class="h4 text-center pt-4 mb-4">Here is the event you created</p>
+    {% elif events|length <= 2 %}
+    <p class="h4 text-center pt-4 mb-4">Here is the list of events you've created</p>
+    {% endif %}
+    <div class="container w-50">
+        {% for event in events %}
+        {% if current_user.id == event.creator_id %}
+        <a href="{{ url_for('events.eventcard', event_id=event.id)}}" class=" list-group-item
+        list-group-item-action">
+            <img style="height:75px; width: 100px; float: right;" class="card-img-top"
+                src="{{url_for('static', filename='cover_img/' + event.cover_img)}}">
+            <p class="mb-0"><b>Title:</b> {{ event.title.capitalize() }}</p>
+            <p class="mb-0"><b>Location:</b> {{ event.location.capitalize() }}</p>
+            <p class="mb-0"><b>Start date:</b> {{ event.start_date.strftime('%B %d, %Y') }}</p>
+            event
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

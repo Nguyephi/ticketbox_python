@@ -7,23 +7,39 @@
             <div class="col-md-12">
                 <div class="card card-cascade wider reverse">
                     <div class="view view-cascade overlay">
-                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(142).jpg"
-                            alt="Sample image">
+                        <img style="height:500px;" class="card-img-top" src="
+                            {{url_for('static', filename='cover_img/' + eventcard.cover_img)}}">
                         <a href="#!">
                             <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
                     <div class="card-body card-body-cascade text-center">
-                        <h2 class="font-weight-bold"><a>{{ eventcard.title}}</a></h2>
+                        <h2 class="font-weight-bold"><a>{{ eventcard.title.capitalize() }}</a></h2>
                         <p>Created by <a><strong>
-                                    <!-- NEED TO FIGURE OUT TO GET CREATORS NAME TO DISPLAY -->
-                                    <!-- {{current_user.username}} -->
+                                    {{ user.username }}
                                 </strong></a></p>
+                        {% if eventcard.ticket_type|length ==0 %}
+                        <a href="{{ url_for('events.buy_ticket', event_id=eventcard.id) }}"><button type="button"
+                                class="btn btn-deep-orange">Free Event!</button></a>
+                        {% else %}
+                        <a href="{{ url_for('events.buy_ticket', event_id=eventcard.id) }}"><button type="button"
+                                class="btn btn-deep-orange">Buy Tickets!</button></a>
+                        <p>{{total_tickets}} tickets left!</p>
+                        <ul class="list-group list-group-flush mt-3">
+                            {% for ticket in tickets %}
+                            <li class="list-group-item"><b>{{ticket.ticket_type}}</b> - Price: ${{ticket.ticket_price}}
+                                -
+                                Quantity: {{ticket.quantity}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
                 {% if current_user.id == eventcard.creator_id %}
                 <div class="text-center mt-3">
-                    <p><a href="/events/{{eventcard.id}}/edit">Edit event</a><span class="mx-2">|</span><a
+                    <p><a href="{{ url_for('events.add_ticket_type', event_id=eventcard.id) }}">Add
+                            Tickets</a><span class="mx-2">|</span><a href="/events/{{eventcard.id}}/edit">Edit
+                            Event</a><span class="mx-2">|</span><a
                             href="{{ url_for('events.delete_event', event_id=eventcard.id) }}">Delete
                             Event</a>
                     </p>
@@ -32,7 +48,7 @@
                 <div class="mt-5 ">
                     <h3>Event description</h3>
                     <hr class="mb-4 mt-4">
-                    <p class="card-text mb-0"><strong>Located at: </strong>{{ eventcard.location }}</p>
+                    <p class="card-text mb-0"><strong>Located at: </strong>{{ eventcard.location.capitalize() }}</p>
                     <p class="card-text mb-0"><strong>Start date:
                         </strong>{{ eventcard.start_date.strftime('%B %d, %Y') }}
                         <p class="card-text"><strong>End date: </strong>
@@ -42,7 +58,7 @@
                             {{ eventcard.end_date.strftime('%B %d, %Y') }}
                             {% endif %}
                         </p>
-                        <p>{{ eventcard.description }}
+                        <p>{{ eventcard.description.capitalize() | safe }}
                         </p>
                 </div>
             </div>

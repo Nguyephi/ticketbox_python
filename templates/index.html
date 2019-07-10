@@ -11,29 +11,45 @@
             style="width:50px; height:50px; animation-duration: 8s;">
     </div>
 </div>
-
+<div class="text-center">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith%}
+</div>
 
 <div style="display: flex; flex-wrap: wrap;justify-content: center;">
     {% for event in events %}
     <div class="card card-cascade wider" style="margin: 30px; width: 500px;">
         <!-- Card image -->
         <div class="view view-cascade overlay" style="width: 105%; border-radius: 6px; right: .7em;">
-            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/photo6.jpg" alt="Card image cap">
+            <img style="height:300px;" class="card-img-top"
+                src="{{ url_for('static', filename='cover_img/' + event.cover_img)}}">
             <a href="{{ url_for('events.eventcard', event_id=event.id)}}">
                 <div class="mask rgba-white-slight"></div>
             </a>
         </div>
         <!-- Card content -->
         <div class="card-body card-body-cascade text-center">
-
-            <!-- Title -->
-            <h3 class="card-title"><strong>{{ event.title }}</strong></h3>
-            <!-- Subtitle -->
-            <h6 class="deep-orange-text pb-2"><strong>Start date:
-                    {{ event.start_date.strftime('%B %d, %Y') }}</strong>
-            </h6>
-            <!-- Text -->
-            <p class="card-text">Located at: {{ event.location }}</p>
+            <p style="position: absolute; bottom: 0; right: 0; padding-right: 15px;"><a
+                    href="{{ url_for('events.like_event', event_id=event.id) }}"><i style='margin-right: 5px;'
+                        class="far fa-thumbs-up orange-text"></i></a>{{event.like_count}}
+            </p>
+            <div>
+                <!-- Title -->
+                <h3 class="card-title"><strong>{{ event.title.capitalize() }}</strong></h3>
+                <!-- Subtitle -->
+                <h6 class="deep-orange-text pb-2"><strong>Start date:
+                        {{ event.start_date.strftime('%B %d, %Y') }}</strong>
+                </h6>
+                <!-- Text -->
+                <p class="card-text">Located: {{ event.location.capitalize() }}</p>
+            </div>
         </div>
     </div>
     {% endfor %}
